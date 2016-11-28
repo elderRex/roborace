@@ -13,8 +13,8 @@ def mycomp(obptA,obptB):
         return 1
     cA = (obptA[0]-p0[0])/distA
     cB = (obptB[0]-p0[0])/distB
-    if obptA[0] == 200 or obptB[0] == 200:
-        print distA
+    #if obptA[0] == 200 or obptB[0] == 200:
+    #    print distA
     if cA > cB:
         return -1 #obpta,bptb
     elif cA < cB:
@@ -28,6 +28,7 @@ def mycomp(obptA,obptB):
 
 def get_p0_sort(ob):
     global p0
+    p0 = [0, 1000]
     for i in range(0,len(ob)):
         #print ob[i]
         if ob[i][1] < p0[1] and ob[i][0] > p0[0]:
@@ -43,23 +44,29 @@ def get_p0_sort(ob):
     print fin
     return (p0,fin)
 
+def check(p0,pn_1,p_i):
+    return (pn_1[0] - p0[0])*(p_i[1] - p0[1]) - (pn_1[1] - p0[1])*(p_i[0] - p0[0])
+
 def graham(p0,sob):
     fin_ob = []
     #*******
-    fin_ob.append(p0)
-    fin_ob.append(sob[0])
+    fin_ob.append((p0[0],p0[1]))
+    fin_ob.append(sob[1])
 
     i = 2
-
+    print len(fin_ob)
     while i < len(sob):
-        
-
+        if check(fin_ob[len(fin_ob)-2],fin_ob[len(fin_ob)-1],sob[i]) > 0:
+            fin_ob.append(sob[i])
+            i += 1
+        else:
+            fin_ob.pop()
 
     return fin_ob
 
 def get_convex(init_obs):
     convex_obs = []
-
+    print len(init_obs)
     for i in range(0, len(init_obs)):
         #for each obstacle
         fin_ob = []

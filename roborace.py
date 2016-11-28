@@ -2,6 +2,7 @@ import os
 from ConvexHull import *
 import matplotlib.pyplot as plt
 from Grow_Obstacle import *
+from generate_visibility import *
 
 #**Global Var Definition
 start = []
@@ -10,7 +11,6 @@ world = []
 obs = []
 initial_obs = []
 convex_obs = []
-
 
 #***********************************************
 configurefile = open("configure.txt",'r')
@@ -49,35 +49,52 @@ for i in range(0,int(obs_cnt)):
         #print fparas
         obs = obs + [(float(fparas[0]), float(fparas[1].split('\n')[0]))]
         obpts -= 1
-    print i
+    #print i
     initial_obs.append(obs)
     obs = []
-    print initial_obs
-x = []
-y = []
+    #print initial_obs
+
 for ibos in initial_obs:
+    a = []
+    b = []
     for item in ibos:
-        x.append(item[0])
-        y.append(item[1])
-x.append(start[0])
-y.append(start[1])
-x.append(goal[0])
-y.append(goal[1])
-plt.scatter(x,y)
+        a.append(item[0])
+        b.append(item[1])
+        plt.plot(a, b, '.b-')
+a.append(start[0])
+b.append(start[1])
+a.append(goal[0])
+b.append(goal[1])
 
 initial_obs = my_grow_obs(start[0],start[1],0,initial_obs)
-print initial_obs
-x = []
-y = []
+#print initial_obs
 for ibos in initial_obs:
+    x = []
+    y = []
     for item in ibos:
         x.append(item[0])
         y.append(item[1])
-x.append(start[0])
-y.append(start[1])
-x.append(goal[0])
-y.append(goal[1])
-plt.scatter(x,y,color='red')
+#plt.show()
 
 convex_obs = get_convex(initial_obs)
+print len(convex_obs)
+for ibos in convex_obs:
+    x = []
+    y = []
+    print ibos
+    for item in ibos:
+        x.append(item[0])
+        y.append(item[1])
+    plt.plot(x,y,'.r-')
+
+plt.scatter(a,b,color='red')
 plt.show()
+
+graph = visibility_graph()
+
+print graph.vertices
+print graph.real_vertices
+(dis,fin_path) = graph.line_connection(convex_obs,start,goal)
+
+print dis
+print fin_path
