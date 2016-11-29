@@ -1,10 +1,6 @@
 import heapq
 import sys
 import math
-import matplotlib.pyplot as plt
-import matplotlib.path as mpt
-from line_judge import *
-import numpy as np
 
 class visibility_graph:
 
@@ -14,43 +10,43 @@ class visibility_graph:
         self.vertices = {}
         print "OKIE"
 
-    def get_binary_poits(self,top,bot):
-        points = []
-        binary_cnt = 3
-        mid = (top+bot)/2
-        points.append(mid)
-        points += self.getb_points(top,mid)
-        points += self.getb_points(mid,bot)
-        points += self.getb_points(top,(top+mid)/2)
-        points += self.getb_points((top + mid) / 2,mid)
-        points += self.getb_points((mid+bot)/2, bot)
-        points += self.getb_points(mid,(mid + bot) / 2)
-        return points
 
-    def getb_points(self,top,bot):
-        res = []
-        res.append((top+bot)/2)
-        return res
-
-
-    def intersect_judge(self, vertex_1, vertex_2,convex_ob):
+    def intersect_judge(self, vertex_1, vertex_2,vertex):
+        left_x = vertex_1[0]
+        left_y = vertex_1[1]
+        right_x = vertex_2[0]
+        right_y = vertex_2[1]
         # calculate the k and b of the line
         res = False
-        for p in range(0,len(convex_ob)):
-            for i in range(0,len(convex_ob[p])):
-                if i == len(convex_ob[p])-1:
-                    j = 0
-                else:
-                    j = i + 1
-                if vertex_1 == convex_ob[p][i] and vertex_2 == convex_ob[p][j]:
-                    return False
-            ob_path = mpt.Path(np.array(convex_ob[p]))
-            points = self.get_binary_poits(np.array(vertex_1),np.array(vertex_2))
-            for i in range(0,len(points)):
-                if ob_path.contains_point(points[i]):
-                    res = True
+        if left_x != right_x:
+            k = (right_y - left_y) / (right_x - left_x)
+            b = right_y - k * right_x
+            for p in range(0,len(vertex)):
+                for i in range(0, len(vertex[p])):
+                    if i == len(vertex[p]) - 1:
+                        j = 0
+                    else:
+                        j = i + 1
+                    x_1 = vertex[p][i][0]
+                    # y_1 = vertex[i][1]
+                    x_2 = vertex[p][j][0]
+                    # y_2 = vertex[j][1]
+                    if (k * x_1 + b) * (k * x_2 + b) < 0:
+                        return True
+        else:
+            for p in range(0, len(vertex)):
+                for i in range(0, len(vertex[p])):
+                    if i == len(vertex[p]) - 1:
+                        j = 0
+                    else:
+                        j = i + 1
+                    x_1 = vertex[p][i][0]
+                    # y_1 = vertex[i][1]
+                    x_2 = vertex[p][j][0]
+                    # y_2 = vertex[j][1]
+                    if (x_1 - left_x) * (x_2 - left_y) < 0:
+                        return True
         return res
-        
 
 
     def converse(self, vertex, start, goal):
@@ -110,27 +106,24 @@ class visibility_graph:
 
 
     def line_connection(self, vertex, start, goal):
-        print "in new line"
         self.converse(vertex,start,goal)
         for i in range(0, len(self.real_vertices)):
             vertex_temp = {}
             x_1 = self.real_vertices[i][0]
             y_1 = self.real_vertices[i][1]
-            for j in range(i+1, len(self.real_vertices)):
+            for j in range(i, len(self.real_vertices)):
                 x_2 = self.real_vertices[j][0]
                 y_2 = self.real_vertices[j][1]
                 # add parameters
-                if j == 21:
-                    j = 21
+                if j == 1:
+                    j = 1
                 result = self.intersect_judge((x_1,y_1),(x_2,y_2),vertex)
                 if result == True:
                     continue
                 else:
-                    plt.plot((x_1,x_2),(y_1,y_2),'.g-')
                     distance_temp = math.sqrt(pow(x_1 - x_2,2) + pow(y_1 - y_2, 2))
                     vertex_temp[str(j)] = distance_temp
             self.add_vertex(str(i), vertex_temp)
-        #plt.show()
         return self.dijkstras_algorithm(str(0),str(1))
 
 
