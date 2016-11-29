@@ -88,13 +88,12 @@ for ibos in convex_obs:
     plt.plot(x,y,'.r-')
 
 plt.scatter(a,b,color='red')
-plt.show()
+#plt.show()
 
 graph = visibility_graph()
 
 print graph.vertices
 print graph.real_vertices
-(dis,fin_path) = graph.line_connection(convex_obs,start,goal)
-
-print dis
+fin_path = graph.line_connection(convex_obs,start,goal)
+plt.show()
 print fin_path
