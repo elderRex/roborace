@@ -53,18 +53,20 @@ for i in range(0,int(obs_cnt)):
     initial_obs.append(obs)
     obs = []
     #print initial_obs
-
+plt.ion()
+plt.scatter((start[0],goal[0]),(start[1],goal[1]))
+plt.draw()
+plt.pause(0.1)
 for ibos in initial_obs:
     a = []
     b = []
     for item in ibos:
         a.append(item[0])
         b.append(item[1])
-        plt.plot(a, b, '.b-')
-a.append(start[0])
-b.append(start[1])
-a.append(goal[0])
-b.append(goal[1])
+    a.append(ibos[0][0])
+    b.append(ibos[0][1])
+    plt.plot(a, b, '.b-')
+    #plt.pause(0.0001)
 
 initial_obs = my_grow_obs(start[0],start[1],0,initial_obs)
 #print initial_obs
@@ -77,15 +79,18 @@ for ibos in initial_obs:
 #plt.show()
 
 convex_obs = get_convex(initial_obs)
-print len(convex_obs)
+#print len(convex_obs)
 for ibos in convex_obs:
     x = []
     y = []
-    print ibos
+    #print ibos
     for item in ibos:
         x.append(item[0])
         y.append(item[1])
-    plt.plot(x,y,'.r-')
+    x.append(ibos[0][0])
+    y.append(ibos[0][1])
+    plt.plot(x,y,'.r-',linewidth=2)
+    #plt.pause(0.0001)
 
 plt.scatter(a,b,color='red')
 #plt.show()
@@ -95,5 +100,11 @@ graph = visibility_graph()
 print graph.vertices
 print graph.real_vertices
 fin_path = graph.line_connection(convex_obs,start,goal)
-plt.show()
+#plt.show()
 print fin_path
+#plt.pause(20)
+plt.savefig('res.jpg')
+with open('Route_For_race.txt','w') as routein:
+    for i in range(0, len(fin_path)):
+        routein.write(str(fin_path[i][0])+','+str(fin_path[i][1])+'\n')
+routein.close()

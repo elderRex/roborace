@@ -38,10 +38,10 @@ def get_p0_sort(ob):
         if ob[i][1] < p0[1]:
             p0[1] = ob[i][1]
             p0[0] = ob[i][0]
-    print p0
+    #print p0
 
     fin = sorted(ob,cmp=mycomp)
-    print fin
+    #print fin
     return (p0,fin)
 
 def check(p0,pn_1,p_i):
@@ -50,7 +50,8 @@ def check(p0,pn_1,p_i):
 def graham(p0,sob):
     fin_ob = []
     #*******
-    fin_ob.append((p0[0],p0[1]))
+    print 'sob[0]'+str(sob[0])
+    fin_ob.append(sob[0])
     fin_ob.append(sob[1])
 
     i = 2
@@ -66,7 +67,7 @@ def graham(p0,sob):
 
 def get_convex(init_obs):
     convex_obs = []
-    print len(init_obs)
+    #print len(init_obs)
     for i in range(0, len(init_obs)):
         #for each obstacle
         fin_ob = []

@@ -107,4 +107,42 @@ def intersect_judge(self, vertex_1, vertex_2, vertex):
                         print "caught"
                         return True
         return res
+
+            if u == goal:  # If the closest node is our target we're done so print the path
+                path = []
+                #print u
+                #print goal
+                #print 'next up pre node'
+                print 'this pre_node'
+                print pre_node
+                print 'this distance'
+                print distance
+                while pre_node[u]:  # Traverse through nodes til we reach the root which is 0
+                    path.append(u)
+                    u = pre_node[u]
+                #print path
+                return path
+
+                        points = []
+        binary_cnt = 3
+        mid = (top+bot)/2
+        points.append(mid)
+        points += self.getb_points(top,mid)
+        points += self.getb_points(mid,bot)
+        points += self.getb_points(top,(top+mid)/2)
+        points += self.getb_points((top + mid) / 2,mid)
+        points += self.getb_points((mid+bot)/2, bot)
+        points += self.getb_points(mid,(mid + bot) / 2)
+        m1 = (top+mid)/2
+        m2 = (mid+bot)/2
+        points += self.getb_points(top, (top + m1) / 2)
+        points += self.getb_points((top + m1) / 2, m1)
+        points += self.getb_points(m1, (m1 + mid) / 2)
+        points += self.getb_points((m1 + mid) / 2, mid)
+        points += self.getb_points((m2 + bot) / 2, bot)
+        points += self.getb_points(m2,(m2 + bot) / 2)
+        points += self.getb_points((m2 + mid) / 2, m2)
+        points += self.getb_points(mid,(m2 + mid) / 2)
+        return points
+
 '''

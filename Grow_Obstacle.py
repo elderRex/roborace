@@ -15,7 +15,7 @@ def get_R(cart_x,cart_y,cart_ori):
     global cart_grow
     cart_vertex = []
     #assume cart is a circle and R is the center of circle
-
+    '''
     cart_vertex.append((cart_x + half_cart, cart_y + half_cart))
     cart_vertex.append((cart_x - half_cart, cart_y + half_cart))
     cart_vertex.append((cart_x + half_cart, cart_y - half_cart))
@@ -31,9 +31,9 @@ def get_R(cart_x,cart_y,cart_ori):
     cart_vertex.append((cart_x + cart_rad / s2, cart_y - cart_rad / s2))
     cart_vertex.append((cart_x - cart_rad / s2, cart_y + cart_rad / s2))
     cart_vertex.append((cart_x - cart_rad / s2, cart_y - cart_rad / s2))
-    '''
+
     print cart_vertex
-    for i in range(1,4):
+    for i in range(1,9):
         cart_grow = cart_grow + [(cart_vertex[i][0]-cart_vertex[0][0],cart_vertex[i][1]-cart_vertex[0][1])]
 
 
@@ -51,7 +51,7 @@ def grow_stuff(init_obstacles):
     for i in range(0,len(init_obstacles)):
         update_obs = []
         for j in range(0,len(init_obstacles[i])):
-            for k in range(0,4):
+            for k in range(0,9):
                 update_obs += [(init_obstacles[i][j][0]+cart_grow[k][0],init_obstacles[i][j][1]+cart_grow[k][1])]
         init_obstacles[i] = update_obs
         #print init_obstacles[i]
