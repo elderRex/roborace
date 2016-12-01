@@ -3,7 +3,6 @@ import sys
 import math
 import matplotlib.pyplot as plt
 import matplotlib.path as mpt
-from line_judge import *
 import numpy as np
 
 class visibility_graph:
@@ -148,7 +147,7 @@ class visibility_graph:
                     continue
                 else:
                     plt.plot((x_1,x_2),(y_1,y_2),'.g-')
-                    #plt.pause(0.0001)
+                    plt.pause(0.0001)
                     distance_temp = math.sqrt(pow(x_1 - x_2,2) + pow(y_1 - y_2, 2))
                     vertex_temp[str(j)] = distance_temp
             #print vertex_temp
@@ -163,7 +162,7 @@ class visibility_graph:
         for i in range(0,len(real_path)-1):
             j = i + 1
             plt.plot((real_path[i][0],real_path[j][0]),(real_path[i][1],real_path[j][1]),'.y--',linewidth=4)
-            #plt.pause(0.0001)
+            plt.pause(0.0001)
 
         return real_path
 

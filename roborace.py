@@ -3,6 +3,9 @@ from ConvexHull import *
 import matplotlib.pyplot as plt
 from Grow_Obstacle import *
 from generate_visibility import *
+import sys
+
+print 'Argument List:', str(sys.argv)
 
 #**Global Var Definition
 start = []
@@ -11,9 +14,10 @@ world = []
 obs = []
 initial_obs = []
 convex_obs = []
-
+filename = str(sys.argv[1])
+print 'Filename Provided is : ' + filename
 #***********************************************
-configurefile = open("configure.txt",'r')
+configurefile = open(filename,'r')
 
 cnt = 0
 obs_cnt = 0
@@ -23,6 +27,7 @@ while True:
     line = configurefile.readline()
     paras = line.split(' ')
    # print len(paras)
+    print paras[0]
     if cnt == 0:
         start = [float(paras[0]),float(paras[1].split('\n')[0])]
         print start
@@ -66,7 +71,7 @@ for ibos in initial_obs:
     a.append(ibos[0][0])
     b.append(ibos[0][1])
     plt.plot(a, b, '.b-')
-    #plt.pause(0.0001)
+    plt.pause(0.0001)
 
 initial_obs = my_grow_obs(start[0],start[1],0,initial_obs)
 #print initial_obs
@@ -90,7 +95,7 @@ for ibos in convex_obs:
     x.append(ibos[0][0])
     y.append(ibos[0][1])
     plt.plot(x,y,'.r-',linewidth=2)
-    #plt.pause(0.0001)
+    plt.pause(0.0001)
 
 plt.scatter(a,b,color='red')
 #plt.show()
