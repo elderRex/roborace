@@ -140,7 +140,7 @@ def cam_to_goal(record_flag):
             cart_turn(width/2-center[0],'L')
         else:
             status = True
-        if center[0] < width/2 + 30 and center[0] > width/2 - 30:
+        if center[0] < width/2 + 40 and center[0] > width/2 - 40:
             status = True
 
         rawCapture.truncate(0)

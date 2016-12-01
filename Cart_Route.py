@@ -136,6 +136,8 @@ if flag == 1:
             set_speed(180)
             fwd()
             time.sleep(2)
+    else:
+        print 'whaaaat?'
 else:
     print 'really done'
 
