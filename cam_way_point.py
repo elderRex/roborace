@@ -37,7 +37,7 @@ r = car_axis / 2
 perimeter = 20.4
 
 def cart_turn(dis, ori):
-    target = 2
+    target = 1
     print "target" + str(target)
 
     if ori == 'L':
@@ -135,9 +135,9 @@ def cam_to_goal(record_flag):
             print 'where is the target?'
             cart_turn(width / 2 - center[0], 'R')
         elif center[0] > width/2:
-            cart_turn(center[0]-width/2,'L')
+            cart_turn(center[0]-width/2,'R')
         elif center[0] < width/2:
-            cart_turn(width/2-center[0],'R')
+            cart_turn(width/2-center[0],'L')
         else:
             status = True
         if center[0] < width/2 + 30 and center[0] > width/2 - 30:
